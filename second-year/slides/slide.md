@@ -138,10 +138,17 @@ is called an **$\alpha$-conversion.** If $P$ can convert to $Q$ within finite $\
 
 ---
 
+## Examples of $\alpha$-conversion
+
+- $\lambda x.x \equiv \lambda y.y$
+- $\lambda x.\lambda y.x(xy) \equiv_{\alpha} \lambda u.\lambda v. u(uv)$
+
+---
+
 ## ==Definition($\beta$-reducing)==
 Any term of form  $(\lambda x.M)N$ is called a *$\beta$-redex* and the corresponding term  $[N/x]M$ is called its *contractum*. We call the act that replace the $\beta$-redex by its contractum  in $P$ a $\beta$-contract, noted as 
 $$P \triangleright_{1\beta} Q$$
-If $P$ can $\beta$-contract to $Q$ within finite steps, we say $P$ can $\beta$-reduce to $Q$ and noted:
+If $P$ can $\beta$-contracts or $\alpha$-converses to $Q$ within finite steps, we say $P$ can $\beta$-reduce to $Q$ and noted:
 $$P \triangleright_{\beta} Q$$
 
 ---
@@ -152,7 +159,55 @@ $$P \triangleright_{\beta} Q$$
 - $(\lambda x.y)N \quad \triangleright_{\beta} \quad y$
 - $(\lambda x.(\lambda y.yx)z)v \quad \triangleright_{\beta} \quad (\lambda y.yv)z \quad \triangleright_{\beta} \quad zv$
 - $(\lambda x.xx)(\lambda x.xx) \quad \triangleright_{\beta} \quad (\lambda x.xx)(\lambda x.xx)$
-- $(\lambda x.xxy)$
+- $(\lambda x.xxy)(\lambda x.xxy) \quad \triangleright_{\beta} \quad (\lambda x.xxy)(\lambda x.xxy)y$
+
+---
+
+## ==Definition($\beta$-normal form)==
+
+A $\lambda$-term $Q$ which contains no $\beta$-redexes is called a **$\beta$-normal form**. If $P$ can $\beta$-reduces to a $\beta$-normal form $Q$, we say $Q$ is a $\beta$-normal form of $P$. 
+
+---
+
+## Examples of $\beta$-normal form
+- $zv$ is a $\beta$-normal form of $(\lambda x.(\lambda y.yx)z)v$
+- Let $L \equiv (\lambda x.xxy)(\lambda x.xxy)$ and we have
+  $L \quad \triangleright \quad Ly \quad \triangleright \quad Lyy \quad \triangleright \quad ...$
+  So $L$ has no $\beta$-normal form.
+- Let $P \equiv (\lambda u.v)L$.
+  1. $P \quad \triangleright_{\beta} \quad v$
+  2. $P \quad \triangleright_{\beta} \quad (\lambda u.v)Ly \quad \triangleright_{\beta} \quad (\lambda u.v)Lyy\quad \triangleright_{\beta} \quad \cdots$ 
+
+---
+
+## There are some great results
+
+---
+
+### ==Fact 1==
+
+The relation $\equiv_{\alpha}$ is an equivalence relation.
+
+### ==Fact 2(Church-Rosser Theorem)==
+
+If $P \triangleright_{\beta} M$ and $Q \triangleright_{\beta} N$, then exist a $\lambda$-term $T$ such:
+$$
+	M \triangleright_{\beta} T \quad and \quad N \triangleright_{\beta} T
+$$
+
+### ==Fact 3==
+
+If we always $\beta$-reduce the leftest-outest $\beta$-redex and this process can't stop, any order of reduction will not stop.
+
+---
+
+## Why can we say the "computing ability" of $\beta$-calculus is equal to the turing machine ?
+
+---
+
+## Code number
+
+
 
 ---
 
