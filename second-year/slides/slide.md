@@ -190,7 +190,7 @@ The relation $\equiv_{\alpha}$ is an equivalence relation.
 
 ### ==Fact 2(Church-Rosser Theorem)==
 
-If $P \triangleright_{\beta} M$ and $Q \triangleright_{\beta} N$, then exist a $\lambda$-term $T$ such:
+If $P \triangleright_{\beta} M$ and $P \triangleright_{\beta} N$, then exist a $\lambda$-term $T$ such:
 $$
 	M \triangleright_{\beta} T \quad and \quad N \triangleright_{\beta} T
 $$
@@ -207,7 +207,7 @@ If we always $\beta$-reduce the leftest-outest $\beta$-redex and this process ca
 
 ## Code number and basic arithmetic
 
-|Name|$\beta$-terms|
+|Name|$\lambda$-terms|
 |:-:|:-:|
 |ZERO|$\lambda f.\lambda x.x$|
 |SUCC|$\lambda n.\lambda f.\lambda x.f\,(n\,f\,x)$|
@@ -221,7 +221,7 @@ If we always $\beta$-reduce the leftest-outest $\beta$-redex and this process ca
 
 ## Code boolean and basic logic
 
-|Name|$\beta$-terms|
+|Name|$\lambda$-terms|
 |:-:|:-:|
 |TRUE  | $\lambda x.\lambda y.x$|
 |FALSE | $\lambda x.\lambda y.y$|
@@ -235,7 +235,7 @@ If we always $\beta$-reduce the leftest-outest $\beta$-redex and this process ca
 
 ## Combination of number and boolean
 
-|Name|$\beta$-terms|
+|Name|$\lambda$-terms|
 |:-:|:-:|
 |ISZERO |$\lambda n.n (\lambda x.\text{FALSE}) \text{TRUE}$|
 |LEQ    |$\lambda m.\lambda n. \text{ISZERO} (\text{SUB} m n)$|
