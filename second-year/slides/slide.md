@@ -205,194 +205,100 @@ If we always $\beta$-reduce the leftest-outest $\beta$-redex and this process ca
 
 ---
 
-## Code number
+## Code number and basic arithmetic
 
+|Name|$\beta$-terms|
+|:-:|:-:|
+|ZERO|$\lambda f.\lambda x.x$|
+|SUCC|$\lambda n.\lambda f.\lambda x.f\,(n\,f\,x)$|
+|PLUS|$\lambda m.\lambda n.m\,\text{SUCC}\,n$|
+|MULT|$\lambda m.\lambda n.\lambda f.m\,(n\,f)$|
+|POW |$\lambda b.\lambda e.e\,b$|
+|PRED|$\lambda n.\lambda f.\lambda x.n\,(\lambda g.\lambda h.h\,(g\,f))\,(\lambda u.x)\,(\lambda u.u)$|
+|SUB |$\lambda m.\lambda n.n\,\text{PRED}\,m$|
+
+---
+
+## Code boolean and basic logic
+
+|Name|$\beta$-terms|
+|:-:|:-:|
+|TRUE  | $\lambda x.\lambda y.x$|
+|FALSE | $\lambda x.\lambda y.y$|
+|AND   | $\lambda p.\lambda q.p q p$|
+|OR    | $\lambda p.\lambda q.p p q$|
+|NOT   | $\lambda p.\lambda a.\lambda b.p b a$|
+|IF    | $\lambda p.\lambda a.\lambda b.p a b$|
 
 
 ---
 
+## Combination of number and boolean
 
-# Introducing ==Gaia== theme
-
-#### Marp's new slide theme
-
-###### Created by [Yuki Hattori (@yhatt)](https://github.com/yhatt)
-
----
-<!-- *template: invert -->
-
-> In Greek mythology, **Gaia** also spelled **Gaea**, was the personification of the Earth and one of the Greek primordial deities.
->
-> <small>-- *[Gaia (mythology) - Wikipedia, the free encyclopedia](https://en.wikipedia.org/wiki/Gaia_%28mythology%29)*</small>
-
----
-<!-- page_number: true -->
-
-# Overview
-
-**Gaia** is the beautiful presentation theme on Marp!
-
-- ==**New features**==
-	1. Title Slides
-	2. Highlight
-	3. Color scheme
+|Name|$\beta$-terms|
+|:-:|:-:|
+|ISZERO |$\lambda n.n (\lambda x.\text{FALSE}) \text{TRUE}$|
+|LEQ    |$\lambda m.\lambda n. \text{ISZERO} (\text{SUB} m n)$|
+|EQ     |$\lambda m.\lambda n. \text{AND} (\text{LEQ} m n) (\text{LEQ} n m)$|
 
 ---
 
-# How to use
+## Code repetition (recursion)
 
-#### From menu
+The fixed points:
+$$
+Y \equiv (\lambda g.(\lambda x.g (x x)) \lambda x.g (x x))
+$$
+$Y$ follows:
+$$
+	Y F =_{\beta} F(Y F)
+$$
 
-Select menu: *View :arrow_right: Theme :arrow_right: Gaia*
+---
 
-#### Use directive
+## Example 
 
-Set `gaia` theme by `$theme` Global Directive.
-
+Now we are going to create the factorial function as example:
+$$
+f(n) = n(n-1)(n-2)\cdots
+$$
+An intuitive idea is:
+```text
+FACT = \n. If (ISZERO n) ONE (MULT n (FACT (PRED n)))
 ```
-<!-- $theme: gaia -->
+But we can't define such term beacuse it's self-recurisive.
+
+---
+
+## Example
+
+The right answer is:
+```text
+FACT2 = \f. \n. IF (ISZERO n) ONE (MULT n (f (PRED n)))
+FACT = Y FACT2
 ```
-
 ---
 
-# Basic example 1
+## Example
 
-**Lorem ipsum** dolor *sit* amet, ***consectetur*** adipiscing elit, sed do `eiusmod` tempor ==incididunt== ut labore et dolore ~~magna aliqua~~. :smile:
-
-> Stay Hungry. Stay Foolish. <small>_--Steve Jobs (2005)_</small>
-
-- List A
-	1. [Sub list](https://yhatt.github.io/marp/)
-	1. Sub list
-		- _More Sub list_
-
----
-
-# Basic example 2
-
-```javascript
-document.write('Hello, world!');
+Let's see what happend when we call "FACT THREE":
+```text
+FACT THREE
+= Y FACT2 THREE
+= FACT2(Y FACT2) THREE
+= IF(ISZERO THREE) ONE (MULT THREE(Y FACT2 TWO))
+= MULT THREE(Y FACT2 TWO)
+= ...
+= MULT THREE (MULT TWO (MULT ONE ONE))
 ```
-
-|table|layout|example|
-|:--|:-:|--:|
-|align to left|align to center|align to right|
-|:arrow_left: left|:arrow_left: center :arrow_right:|right :arrow_right:|
-
-![70% center](../images/marp.png)
-
----
-<!-- *template: gaia -->
-
-## Introduce new features!!
-
-# ==1.== Title Slides
-
 ---
 
-# ==e.g.== This page :yum:
+## Reference
+- Lambda-Calculus and Combinators,an Introduction, 
+  by J. ROGER HINDLEY and JONATHAN P. SELDIN
+- 让我们谈谈 λ 演算
+  by 王盛颐
+- Lambda calculus - Wikipedia
 
----
-
-## ==Apply centering== to the page<br />that has only headings!
-
-##### Useful to title slide. :laughing:
-
----
-
-> **==Tips:==**
-> Apply vertical centering to quote only page too.
-
----
-<!-- *template: gaia -->
-
-# ==2.== Highlight
-
----
-## Highlight Markup
-
-You can use `==` for ==highlighting blue==.
-
-```markdown
-==This is highlight markup.==
-```
-
-#### Notice
-
-*Marp would show <span style="background-color:yellow;">yellow marker highlight</span> in Markdown view or default slide theme.*
-
----
-<!-- *template: gaia -->
-
-# ==3.== Color scheme templates
----
-# ==Color== scheme templates
-
-Change color scheme *by `template` page directive.*
-
-```
-<!-- template: default -->
-```
-
-- **Default** :arrow_left: This page
-- Invert
-- Gaia (Theme color)
-
----
-
-# Hello,world
-
-this is bria
-
-$$ \sum_{i=1}^{n}i$$
-
----
-
-<!-- *template: invert -->
-# ==Color== scheme templates
-
-Change color scheme *by `template` page directive.*
-
-```
-<!-- template: invert -->
-```
-
-- Default
-- **Invert** :arrow_left: This page
-- Gaia (Theme color)
-
----
-<!-- *template: gaia -->
-# ==Color== scheme templates
-
-Change color scheme *by `template` page directive.*
-
-```
-<!-- template: gaia -->
-```
-
-- Default
-- Invert
-- **Gaia** (Theme color) :arrow_left: This page
-
----
-<!-- *template: invert -->
-
-# Templates can use<br />to ==per pages==!
-
-##### with using temporally page directive `<!-- *template: invert -->`
-
----
-<!-- template: gaia -->
-
-# ==That's all!==
-
-## Let's create beautiful slides<br />with ==Marp== + ==Gaia== theme!
-
----
-
-#### `<!-- $theme: gaia -->` of Marp
-
-###### [![](../images/marp.png)](https://yhatt.github.io/marp)
-
-#### https://yhatt.github.io/marp
+Slide is made by Marp(a markdown editor)
+## Any question ?
